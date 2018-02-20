@@ -15,4 +15,4 @@ main =
         name =
             "Stuart Frost"
     in
-        Html.text (String.append (String.append (uppercase_longer_than_10 name) " - name length: ") (toString (String.length name)))
+        Html.text (uppercase_longer_than_10 name ++ " - name length: " ++ toString (String.length name))
