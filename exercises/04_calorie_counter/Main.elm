@@ -9,12 +9,16 @@ import Html.Events exposing (..)
 
 
 type alias Model =
-    Int
+    { count : Int
+    , inc_amount : String
+    }
 
 
 initModel : Model
 initModel =
-    0
+    { count = 0
+    , inc_amount = ""
+    }
 
 
 
@@ -24,15 +28,19 @@ initModel =
 type Msg
     = AddCalorie
     | Clear
+    | TrackInput String
 
 
 update msg model =
     case msg of
         AddCalorie ->
-            model + 1
+            { model | count = model.count + 1 }
 
         Clear ->
             initModel
+
+        TrackInput new_input ->
+            { model | inc_amount = new_input }
 
 
 
@@ -42,7 +50,10 @@ update msg model =
 view model =
     div []
         [ h3 []
-            [ text ("Total Calories: " ++ (toString model)) ]
+            [ text ("Total Calories: " ++ (toString model.count) ++ " - " ++ model.inc_amount) ]
+        , input
+            [ onInput TrackInput ]
+            []
         , button
             [ type_ "button"
             , onClick AddCalorie
