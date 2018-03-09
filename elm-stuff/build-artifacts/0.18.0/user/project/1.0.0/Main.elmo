@@ -1,23 +1,28 @@
-var _user$project$Main$initModel = {count: 0, inc_amount: ''};
+var _user$project$Main$initModel = {count: 0, incAmount: ''};
 var _user$project$Main$update = F2(
 	function (msg, model) {
-		var _p0 = msg;
+		var _p0 = A2(_elm_lang$core$Debug$log, 'msg', msg);
 		switch (_p0.ctor) {
 			case 'AddCalorie':
 				return _elm_lang$core$Native_Utils.update(
 					model,
-					{count: model.count + 1});
+					{
+						count: model.count + A2(
+							_elm_lang$core$Result$withDefault,
+							0,
+							_elm_lang$core$String$toInt(model.incAmount))
+					});
 			case 'Clear':
 				return _user$project$Main$initModel;
 			default:
 				return _elm_lang$core$Native_Utils.update(
 					model,
-					{inc_amount: _p0._0});
+					{incAmount: _p0._0});
 		}
 	});
 var _user$project$Main$Model = F2(
 	function (a, b) {
-		return {count: a, inc_amount: b};
+		return {count: a, incAmount: b};
 	});
 var _user$project$Main$TrackInput = function (a) {
 	return {ctor: 'TrackInput', _0: a};
@@ -39,10 +44,7 @@ var _user$project$Main$view = function (model) {
 						A2(
 							_elm_lang$core$Basics_ops['++'],
 							'Total Calories: ',
-							A2(
-								_elm_lang$core$Basics_ops['++'],
-								_elm_lang$core$Basics$toString(model.count),
-								A2(_elm_lang$core$Basics_ops['++'], ' - ', model.inc_amount)))),
+							_elm_lang$core$Basics$toString(model.count))),
 					_1: {ctor: '[]'}
 				}),
 			_1: {
@@ -52,7 +54,11 @@ var _user$project$Main$view = function (model) {
 					{
 						ctor: '::',
 						_0: _elm_lang$html$Html_Events$onInput(_user$project$Main$TrackInput),
-						_1: {ctor: '[]'}
+						_1: {
+							ctor: '::',
+							_0: _elm_lang$html$Html_Attributes$value(model.incAmount),
+							_1: {ctor: '[]'}
+						}
 					},
 					{ctor: '[]'}),
 				_1: {
