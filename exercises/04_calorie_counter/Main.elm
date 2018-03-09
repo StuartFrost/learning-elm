@@ -11,6 +11,7 @@ import Html.Events exposing (..)
 type alias Model =
     { count : Int
     , incAmount : String
+    , errorMsg : String
     }
 
 
@@ -18,6 +19,7 @@ initModel : Model
 initModel =
     { count = 0
     , incAmount = ""
+    , errorMsg = ""
     }
 
 
@@ -36,13 +38,21 @@ update msg model =
     case msg of
         AddCalorie ->
             let
-                newCount =
+                userInput =
                     model.incAmount
                         |> String.toInt
+
+                newCount =
+                    userInput
                         |> Result.withDefault 0
                         |> (+) model.count
             in
-                { model | count = newCount, incAmount = "" }
+                case userInput of
+                    Ok input ->
+                        { model | count = newCount, incAmount = "", errorMsg = "" }
+
+                    Err error ->
+                        { model | errorMsg = "Invalid input. Please enter a number." }
 
         Clear ->
             initModel
@@ -75,6 +85,8 @@ view model =
             , onClick Clear
             ]
             [ text "Clear" ]
+        , p []
+            [ text (model.errorMsg) ]
         ]
 
 
