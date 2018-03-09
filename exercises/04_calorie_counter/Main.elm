@@ -36,13 +36,13 @@ update msg model =
     case msg of
         AddCalorie ->
             let
-                amountToIncrement =
+                newCount =
                     model.incAmount
                         |> String.toInt
                         |> Result.withDefault 0
                         |> (+) model.count
             in
-                { model | count = amountToIncrement }
+                { model | count = newCount, incAmount = "" }
 
         Clear ->
             initModel

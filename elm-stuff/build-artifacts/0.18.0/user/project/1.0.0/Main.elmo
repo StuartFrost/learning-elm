@@ -16,7 +16,7 @@ var _user$project$Main$update = F2(
 						_elm_lang$core$String$toInt(model.incAmount)));
 				return _elm_lang$core$Native_Utils.update(
 					model,
-					{count: amountToIncrement});
+					{count: amountToIncrement, incAmount: ''});
 			case 'Clear':
 				return _user$project$Main$initModel;
 			default:
