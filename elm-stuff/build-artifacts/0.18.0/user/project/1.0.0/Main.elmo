@@ -1,17 +1,22 @@
 var _user$project$Main$initModel = {count: 0, incAmount: ''};
 var _user$project$Main$update = F2(
 	function (msg, model) {
-		var _p0 = A2(_elm_lang$core$Debug$log, 'msg', msg);
+		var _p0 = msg;
 		switch (_p0.ctor) {
 			case 'AddCalorie':
+				var amountToIncrement = A2(
+					F2(
+						function (x, y) {
+							return x + y;
+						}),
+					model.count,
+					A2(
+						_elm_lang$core$Result$withDefault,
+						0,
+						_elm_lang$core$String$toInt(model.incAmount)));
 				return _elm_lang$core$Native_Utils.update(
 					model,
-					{
-						count: model.count + A2(
-							_elm_lang$core$Result$withDefault,
-							0,
-							_elm_lang$core$String$toInt(model.incAmount))
-					});
+					{count: amountToIncrement});
 			case 'Clear':
 				return _user$project$Main$initModel;
 			default:

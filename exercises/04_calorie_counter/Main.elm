@@ -33,9 +33,16 @@ type Msg
 
 update : Msg -> Model -> Model
 update msg model =
-    case Debug.log "msg" msg of
+    case msg of
         AddCalorie ->
-            { model | count = model.count + (Result.withDefault 0 (String.toInt model.incAmount)) }
+            let
+                amountToIncrement =
+                    model.incAmount
+                        |> String.toInt
+                        |> Result.withDefault 0
+                        |> (+) model.count
+            in
+                { model | count = amountToIncrement }
 
         Clear ->
             initModel
